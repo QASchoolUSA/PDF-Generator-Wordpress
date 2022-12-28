@@ -21,15 +21,16 @@ async function generatePDF(body) {
             doc.font('Helvetica').text(key + ": " + body[key]);
         }
     }
-    if (body['Pictures'].length > 1) {
-        for (let i = 0; i <= body['Pictures'].length; i++) {
-            const logo = await fetchImage(body['Pictures'][i]);
-            doc.image(logo, 0, 15, { width: 300, align: "center" });
-        }
-    } else {
-        const logo = await fetchImage(body['Pictures']);
-        doc.image(logo, 0, 15, { width: 300, align: "center" });
-    }
+    console.log(body['Pictures']);
+//    if (body['Pictures'].length > 1) {
+//        for (let i = 0; i <= body['Pictures'].length; i++) {
+//            const logo = await fetchImage(body['Pictures'][i]);
+//            doc.image(logo, 0, 15, { width: 300, align: "center" });
+//        }
+//    } else {
+//        const logo = await fetchImage(body['Pictures']);
+//        doc.image(logo, 0, 15, { width: 300, align: "center" });
+//    }
 
     doc.end();
 }
