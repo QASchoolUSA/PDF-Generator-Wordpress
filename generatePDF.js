@@ -29,7 +29,7 @@ async function generatePDF(body) {
         }
     } else {
         const logo = await fetchImage(arrayOfPics[0]);
-        doc.image(logo, { width: 300, align: "center" });
+        doc.image(logo, { align: "center" });
     }
 
     doc.end();
