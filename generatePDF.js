@@ -3,14 +3,13 @@ import fs from "fs";
 
 function generatePDF(body) {
     const doc = new PDFDocument();
-
     doc.pipe(fs.createWriteStream('output.pdf'));
 
     for (const key in body) {
         if(body[key] === '') {
-            doc.fontSize(16).text(key, { align: "center" });
+            doc.font('Helvetica-Bold').fontSize(16).text(key, { align: "center" }).moveDown(0.5);
         } else {
-            doc.text(key + ": " + body[key]);
+            doc.font('Helvetica').text(key + ": " + body[key]);
         }
     }
     doc.end();
