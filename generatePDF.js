@@ -25,11 +25,11 @@ async function generatePDF(body) {
     if (arrayOfPics.length > 1) {
         for (let i = 0; i <= arrayOfPics.length; i++) {
             const logo = await fetchImage(arrayOfPics[i]);
-            doc.image(logo, 0, 15, { width: 300, align: "center" });
+            doc.image(logo, { width: 300, align: "center" });
         }
     } else {
-        const logo = await fetchImage(arrayOfPics);
-        doc.image(logo, 0, 15, { width: 300, align: "center" });
+        const logo = await fetchImage(arrayOfPics[0]);
+        doc.image(logo, { width: 300, align: "center" });
     }
 
     doc.end();
