@@ -1,7 +1,16 @@
 import PDFDocument from "pdfkit";
 import fs from "fs";
+import axios from "axios";
 
-function generatePDF(body) {
+async function fetchImage(src) {
+    const image = await axios
+        .get(src, {
+            responseType: 'arraybuffer'
+        })
+    return image.data;
+}
+
+async function generatePDF(body) {
     const doc = new PDFDocument();
     doc.pipe(fs.createWriteStream('output.pdf'));
 
@@ -14,10 +23,12 @@ function generatePDF(body) {
     }
     if (body['Pictures'].length > 1) {
         for (let i = 0; i <= body['Pictures'].length; i++) {
-            doc.image(`${body['Pictures'][i]}`, 0, 15, { width: 300, align: "center" });
+            const logo = await fetchImage(body['Pictures'][i]);
+            doc.image(logo, 0, 15, { width: 300, align: "center" });
         }
     } else {
-        doc.image(`${body['Pictures']}`, 0, 15, { width: 300, align: "center" });
+        const logo = await fetchImage(body['Pictures']);
+        doc.image(logo, 0, 15, { width: 300, align: "center" });
     }
 
     doc.end();
