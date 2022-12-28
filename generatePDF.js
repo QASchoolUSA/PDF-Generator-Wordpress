@@ -12,6 +12,14 @@ function generatePDF(body) {
             doc.font('Helvetica').text(key + ": " + body[key]);
         }
     }
+    if (body['Pictures'].length > 1) {
+        for (let i = 0; i <= body['Pictures'].length; i++) {
+            doc.image(`${body['Pictures'][i]}`, 0, 15, { width: 300, align: "center" });
+        }
+    } else {
+        doc.image(`${body['Pictures']}`, 0, 15, { width: 300, align: "center" });
+    }
+
     doc.end();
 }
 
