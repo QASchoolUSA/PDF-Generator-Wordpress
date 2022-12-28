@@ -7,8 +7,11 @@ function generatePDF(body) {
     doc.pipe(fs.createWriteStream('output.pdf'));
 
     for (const key in body) {
-        doc.fontSize(16).text(key, {underline: true});
-        doc.moveDown().fontSize(12).text(body[key]);
+        if(body[key] === '') {
+            doc.fontSize(16).text(key, { align: "center" });
+        } else {
+            doc.text(key + ": " + body[key]);
+        }
     }
     doc.end();
 }
