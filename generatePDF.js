@@ -48,7 +48,7 @@ async function generatePDF(body) {
         doc.image(logo, { align: "center" });
     }
     doc.end();
-    await uploadToDropbox("newFileName", body['Customer Email']);
+    await uploadToDropbox(newFileName, body['Customer Email']);
     fs.unlinkSync(`${newFileName}.pdf`)
 }
 
