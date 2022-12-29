@@ -17,7 +17,7 @@ async function uploadToDropbox(fileName, folderName) {
             'Dropbox-API-Arg': `{"path":"/${folderName}/${fileName}.pdf","autorename":false}`
         }
     })
-    return "File Upload is Done.";
+    return fileUpload.data;
 }
 async function generatePDF(body) {
     const doc = new PDFDocument();
