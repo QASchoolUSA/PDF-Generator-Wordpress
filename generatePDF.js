@@ -10,7 +10,7 @@ async function fetchImage(src) {
     return image.data;
 }
 async function uploadToDropbox(fileName, folderName) {
-    const fileUpload = await axios.post("https://content.dropboxapi.com/2/files/upload", '@output.pdf', {
+    const fileUpload = await axios.post("https://content.dropboxapi.com/2/files/upload", `@${fileName}.pdf`, {
         headers: {
             'Authorization': 'Bearer sl.BV36u6AJo--_3N_n0B5FMy-3_jLqC72hFkF3VOpHjodCKq73sg4KcnbwFdIYY9i7yhvh7utwYrzM8-R1di5KSgK9LT0rWQPwY0BAkdxP5Sqmn02-qc5cWnlSDpT0-QBfACHn0LmU-mue',
             'Content-Type': 'application/octet-stream',
@@ -47,7 +47,6 @@ async function generatePDF(body) {
         const logo = await fetchImage(arrayOfPics[0]);
         doc.image(logo, { align: "center" });
     }
-
     doc.end();
     await uploadToDropbox("newFileName", body['Customer Email']);
     fs.unlinkSync(`${newFileName}.pdf`)
