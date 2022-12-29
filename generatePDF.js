@@ -12,7 +12,7 @@ async function fetchImage(src) {
 async function uploadToDropbox(fileName, folderName) {
     const fileUpload = await axios.post("https://content.dropboxapi.com/2/files/upload", `@${fileName}.pdf`, {
         headers: {
-            'Authorization': 'Bearer sl.BV22i_bT9ke-mVyuxRgMKT1_6lhoa9tK7qt3oPZneOGTu8-yHJqxt9dZuigwNxQ6F-GbJwDsMIf4f8fG1HwfX5tyvK-FFUl12V4csLK_bEO3F1vk5gVK7QDdmzzy_Id2w-hZ5xaioGv5',
+            'Authorization': 'Bearer sl.BV05lG-luuNdYK4m0KnMoZJTT7vYCA2dckU71pWG1QjWrYUyE2xpXvBFLQEcWqyUz8Kj56Ye9ZKoW7q7PVlMseamS3H_L8Ag03SPs0Voxu346NI_tuqdQjQkCNnq35Msc1fMAS2kTQAN',
             'Content-Type': 'application/octet-stream',
             'Dropbox-API-Arg': `{"path":"/${folderName}/${fileName}.pdf","autorename":false}`
         }
