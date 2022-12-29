@@ -8,10 +8,10 @@ const port = 3000
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.post('/formSubmission', (req, res) => {
+app.post('/formSubmission', async (req, res) => {
   console.log(req.body);
   res.send('Thanks for data!');
-  generatePDF(req.body);
+  await generatePDF(req.body);
 })
 
 app.listen(port, () => {
