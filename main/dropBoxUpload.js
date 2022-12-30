@@ -11,3 +11,5 @@ function uploadToDropbox(fileName, folderName) {
             console.error(error);
         });
 };
+
+uploadToDropbox("output", "newFolllder")
