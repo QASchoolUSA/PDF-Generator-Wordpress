@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { generatePDF } from "./generatePDF.js";
+import { generatePDF } from "./main/generatePDF.js";
 
 const app = express();
 const port = process.env.PORT;
