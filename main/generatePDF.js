@@ -1,7 +1,12 @@
 import PDFDocument from "pdfkit";
 import fs from "fs";
 import axios from "axios";
+import dotenv from 'dotenv';
+dotenv.config();
 
+/*
+* Function is needed to download images.
+*/
 async function fetchImage(src) {
     const image = await axios
         .get(src, {
@@ -9,23 +14,17 @@ async function fetchImage(src) {
         })
     return image.data;
 }
-async function uploadToDropbox(fileName, folderName) {
-    const fileUpload = await axios.post("https://content.dropboxapi.com/2/files/upload", `@${fileName}.pdf`, {
-        headers: {
-            'Authorization': 'Bearer sl.BV36u6AJo--_3N_n0B5FMy-3_jLqC72hFkF3VOpHjodCKq73sg4KcnbwFdIYY9i7yhvh7utwYrzM8-R1di5KSgK9LT0rWQPwY0BAkdxP5Sqmn02-qc5cWnlSDpT0-QBfACHn0LmU-mue',
-            'Content-Type': 'application/octet-stream',
-            'Dropbox-API-Arg': `{"path":"/${fileName}/${fileName}.pdf","autorename":false}`
-        }
-    })
-    return fileUpload.data;
-}
+
+/*
+*  Function to generate PDF from the data received from Vehicle Inspection Report Form.
+*/
 async function generatePDF(body) {
     const doc = new PDFDocument();
     const newFileName = body.VIN + "-" + body["Maker/Model"]
     doc.pipe(fs.createWriteStream(`${newFileName}.pdf`));
     delete body.form_id;
     delete body.form_name;
-    const header = await fetchImage("https://vehicleinspection.ca/wp-content/uploads/2022/12/header.png");
+    const header = await fetchImage(process.env.HEADER_URL);
     doc.image(header, 200, 0, { align: "center" });
 
     for (const key in body) {
@@ -48,8 +47,7 @@ async function generatePDF(body) {
         doc.image(logo, { align: "center" });
     }
     doc.end();
-    await uploadToDropbox(newFileName, body['Customer Email']);
     fs.unlinkSync(`${newFileName}.pdf`)
 }
 
-export {generatePDF};
+export { generatePDF };
